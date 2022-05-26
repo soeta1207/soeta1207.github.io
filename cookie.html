@@ -13,41 +13,52 @@
     <script type="text/javascript">
 
       /*クッキーのカウンタ*/
-      localStorage.setItem('c_count', 0);
-      cookie_count = parseInt(localStorage.getItem('c_count', 0));
+
+      let ls_count = localStorage.getItem("ls_count");
+      if(ls_count){
+        cookie_count = parseInt(ls_count);
+      } else{
+        cookie_count= 0;
+      }
+      setInterval(save_action,1000);
+
+      function save_action(){
+        localStorage.setItem("ls_count",cookie_count);
+      }
+
+      setInterval(screen_update,100);
+      function screen_update(){
+          var count_text = document.getElementById('cookie_count')
+          count_text.textContent = cookie_count;
+      }
 
       function cookieClick(num) {
-        var count_text = document.getElementById('cookie_count')
         cookie_count=cookie_count+num;
-        count_text.textContent = cookie_count;
       }
 
       function cursor() {
-        setInterval(cookieClick,10000,1);
+        if(cookie_count >=10){
+          cookie_count -= 10;
+          setInterval(cookieClick,1000,1);
+        }
       }
       function grandma() {
-        if (cookie_count >=100) {
+        if(cookie_count >=100){
           cookie_count -= 100;
           setInterval(cookieClick,1000,1);
         }
       }
       function farm() {
-        if (cookie_count >=500) {
-          cookie_count -= 500;
-            setInterval(cookieClick,1000,8);
+        if(cookie_count >=200){
+          cookie_count -= 200;
+          setInterval(cookieClick,1000,8);
         }
       }
       function mine() {
-        if (cookie_count >=10000) {
-          cookie_count -= 1000;
-        setInterval(cookieClick,1000,47);
-         }
-      }
-      function factory() {
-        if (cookie_count >=5000) {
-          cookie_count -= 5000;
-        setInterval(cookieClick,1000,100);
-         }
+        if(cookie_count >=300){
+          cookie_count -= 300;
+          setInterval(cookieClick,1000,100);
+        }
       }
 
     </script>
