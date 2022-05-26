@@ -4,23 +4,65 @@
     <meta charset="utf-8">
     <title></title>
     <style media="screen">
+      body{background-image: url("cookie_back.jpg")}
       img{width:400px;}
     </style>
   </head>
+
   <body>
     <script type="text/javascript">
-      function cookieClick() {
 
+      /*クッキーのカウンタ*/
+      localStorage.setItem('c_count', 0);
+      cookie_count = parseInt(localStorage.getItem('c_count', 0));
+
+      function cookieClick(num) {
+        var count_text = document.getElementById('cookie_count')
+        cookie_count=cookie_count+num;
+        count_text.textContent = cookie_count;
       }
+
+      function cursor() {
+        setInterval(cookieClick,10000,1);
+      }
+      function grandma() {
+        if (cookie_count >=100) {
+          cookie_count -= 100;
+          setInterval(cookieClick,1000,1);
+        }
+      }
+      function farm() {
+        if (cookie_count >=500) {
+          cookie_count -= 500;
+            setInterval(cookieClick,1000,8);
+        }
+      }
+      function mine() {
+        if (cookie_count >=10000) {
+          cookie_count -= 1000;
+        setInterval(cookieClick,1000,47);
+         }
+      }
+      function factory() {
+        if (cookie_count >=5000) {
+          cookie_count -= 5000;
+        setInterval(cookieClick,1000,100);
+         }
+      }
+
     </script>
     <p>
       <span id="cookie_count"></span> cookies
     </p>
-<img src="cookie.png" alt="">
 
-
-
-
+    <img onclick="cookieClick(1)" src="cookie.png" alt="">
+    <ul>
+           <li onclick="cursor()">カーソル</li>
+           <li onclick="grandma()">グランマ</li>
+           <li onclick="farm()">ファーム</li>
+           <li onclick="mine()">マイン</li>
+           <li onclick="factory()">ファクトリー</li>
+    </ul>
 
   </body>
 </html>
