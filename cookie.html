@@ -35,10 +35,14 @@
         localStorage.setItem("ls_count",cookie_count);
       }
 
-      setInterval(screen_update,100);
+      su_event_id = setInterval(screen_update,100);
       function screen_update(){
           var count_text = document.getElementById('cookie_count')
           count_text.textContent = cookie_count;
+      }
+
+      function event_clear(){
+        clearInterval(su_event_id);
       }
 
       function cookieClick(num) {
@@ -47,9 +51,8 @@
         void cookie_img.offsetWidth;
         cookie_img.classList.add('animate__animated','animate__shakeX');
 
-        var count_text = document.getElementById('cookie_count')
         cookie_count=cookie_count+num;
-        count_text.textContent = cookie_count;
+
       }
 
       function cursor() {
@@ -82,6 +85,7 @@
     <div class="container">
 
       <div class="item1">
+          <button id="screen_switch" onclick="event_clear()" type="button" name="button">更新切り替え</button>
         <p>
           <span id="cookie_count"></span> cookies
         </p>
