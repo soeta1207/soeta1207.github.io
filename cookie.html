@@ -16,6 +16,7 @@
       .item2{flex-grow:4;}
       .item3{flex-grow:3;}
     </style>
+
   </head>
 
   <body>
@@ -80,12 +81,19 @@
         }
       }
 
+
+      /*施設切り替え処理*/
+      function buildings_switch() {
+        let list_ele = document.getElementById('buildings_buy');
+        list_ele.style.display = "none";
+      }
+
     </script>
 
     <div class="container">
 
       <div class="item1">
-          <button id="screen_switch" onclick="event_clear()" type="button" name="button">更新切り替え</button>
+        <button id="screen_switch" onclick="event_clear()" type="button" name="button">更新切り替え</button>
         <p>
           <span id="cookie_count"></span> cookies
         </p>
@@ -97,13 +105,28 @@
       </div>
 
       <div class="item3">
-        <ul>
-               <li onclick="cursor()">カーソル</li>
-               <li onclick="grandma()">グランマ</li>
-               <li onclick="farm()">ファーム</li>
-               <li onclick="mine()">マイン</li>
-               <li onclick="factory()">ファクトリー</li>
-        </ul>
+        <div id = "buildings_buy">
+          <span onclick = "buildings_switch()">購入</span>
+          <ul>
+            <li onclick="cursor()">カーソル</li>
+            <li onclick="grandma()">グランマ</li>
+            <li onclick="farm()">ファーム</li>
+            <li onclick="mine()">マイン</li>
+            <li onclick="factory()">ファクトリー</li>
+          </ul>
+        </div>
+
+        <div id = "buildings_sell">
+          <span onclick = "buildings_switch()">売却</span>
+          <ul>
+            <li onclick="sell_cursor()">カーソル</li>
+            <li onclick="sell_grandma()">グランマ</li>
+            <li onclick="sell_farm()">ファーム</li>
+            <li onclick="sell_mine()">マイン</li>
+            <li onclick="sell_factory()">ファクトリー</li>
+          </ul>
+        </div>
+
       </div>
 
     </div>
