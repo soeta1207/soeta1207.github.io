@@ -7,6 +7,7 @@
     />
     <meta charset="utf-8">
     <title></title>
+
     <style media="screen">
       body{background-image: url("cookie_back.jpg")}
       img{width:400px;}
@@ -15,6 +16,10 @@
       .item1{flex-grow:2;}
       .item2{flex-grow:4;}
       .item3{flex-grow:3;}
+
+      #buildings_sell{
+        display: none;
+      }
     </style>
 
   </head>
@@ -84,8 +89,17 @@
 
       /*施設切り替え処理*/
       function buildings_switch() {
-        let list_ele = document.getElementById('buildings_buy');
-        list_ele.style.display = "none";
+        let buy_ele = document.getElementById('buildings_buy');
+        let sell_ele = document.getElementById('buildings_sell');
+
+        if(buy_ele.style.display != "none"){
+          buy_ele.style.display = "none";
+          sell_ele.style.display = "block";
+        }else{
+          buy_ele.style.display = "block";
+          sell_ele.style.display = "none";
+        }
+
       }
 
     </script>
