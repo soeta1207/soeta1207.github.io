@@ -89,5 +89,39 @@
             </div>
           </div>
         </div>
+        <script type="text/javascript">
+          let timeline = document.getElementById('timeline');
+          let tweets = [{"text":"こんにちは","username":"hiroto"},
+        {"text":"おはよう","username":"soeta"},
+        {"text":"こんばんは","username":"suzuki"},
+        {"text":"よろしく","username":"tanaka"}]
+
+
+          tweets.forEach((tweet,i) => {
+            let template = `<div class="tweet">
+              <div class="icon">
+                <img src="dog.jpg" alt="">
+              </div>
+              <div class="tweet_box">
+                <div class="username">
+                  ${tweet.username}
+                  <span class="name">@soeta</span>
+                  <span class="date">2022/7/5</span>
+                </div>
+                <div class="text">
+                  ${tweet.text}
+                  <div class="action">
+                    <span class="icon_chat">0</span>
+                    <span class="icon_fav">0</span>
+                    <span class="icon_share">0</span>
+                    <span class="icon_res">0</span>
+                  </div>
+                </div>
+              </div>
+            </div>`
+            timeline.innerHTML = timeline.innerHTML + template
+          });
+
+        </script>
       </body>
       </html>
