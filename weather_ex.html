@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style media="screen">
+  table,tr,td,th{border: 1px solid black;}
+  </style>
+</head>
+<body>
+  <table>
+    <tr id="date">
+
+    </tr>
+    <tr id="weather">
+
+    </tr>
+
+  </table>
+  <script type="text/javascript">
+  var xhr = new XMLHttpRequest();
+
+  xhr.open('GET', "https://api.open-meteo.com/v1/forecast?latitude=35.6785&longitude=139.6823&daily=weathercode&timezone=Asia%2FTokyo");
+  xhr.send();
+
+  xhr.onreadystatechange = function() {
+    if(xhr.readyState === 4 && xhr.status === 200) {
+      let weather_data = JSON.parse(xhr.responseText);
+      let date_array = weather_data.daily.time;
+      let weather_array = weather_data.daily.weathercode;
+
+      createWeatherTable(date_array,weather_array);
+    }
+  }
+
+
+  function createWeatherTable(date_array,weather_array) {
+    let t_date =document.getElementById('date');
+    let t_weather =document.getElementById('weather');
+
+    date_array.forEach(function(date,i){
+      t_date.innerHTML = t_date.innerHTML + "<th>" + date + "</th>";
+      t_weather.innerHTML = t_weather.innerHTML + "<th>" + weather_array[i] + "</th>";
+    });
+  }
+
+
+
+
+
+
+  </script>
+
+
+
+</body>
+</html>

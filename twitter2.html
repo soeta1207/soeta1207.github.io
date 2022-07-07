@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <style media="screen">
+  .container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  #timeline{width:600px;
+    border-width: 0px thin;
+    border-style: solid;
+    border-color: #CCC;
+  }
+  .tweet{display:flex;
+    border-width: 0px 0px 1px 0px;
+    border-style: solid;
+    border-color: #CCC;
+    padding:15px;
+  }
+  .icon{width:70px;}
+  .icon img{width:50px;border-radius:50%;}
+  .username{font-weight: bold;}
+  .name{padding-left:5px;
+    font-weight: lighter;
+    color:gray;}
+    .action{display:flex;}
+    .action span{width:25%;}
+    .date{padding-left:5px;
+      font-weight: lighter;
+      color:gray;}
+      .text{padding-top:3px;
+        padding-bottom:5px;font-family: 'ＭＳ Ｐゴシック','ＭＳＰゴシック','MSPゴシック','MS Pゴシック';
+        font-size: 16px;
+        line-height: 18px;
+        word-break: break-all;
+      }
+      .icon_chat{
+        padding-left:35px;
+        background-image: url(./img/chat.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+      .icon_fav{
+        padding-left:35px;
+        background-image: url(./img/fav.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+      .icon_res{
+        padding-left:35px;
+        background-image: url(./img/res.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+      .icon_share{
+        padding-left:35px;
+        background-image: url(./img/share.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+
+      </style>
+      <meta charset="utf-8">
+      <title></title>
+    </head>
+    <body>
+      <div class="container">
+        <div id="timeline">
+          <div class="tweet">
+            <div class="icon">
+              <img src="dog.jpg" alt="">
+            </div>
+            <div class="tweet_box">
+              <div class="username">
+                ユーザ名
+                <span class="name">@soeta</span>
+                <span class="date">2022/7/5</span>
+              </div>
+              <div class="text">
+                ツイート
+                <div class="action">
+                  <span class="icon_chat">0</span>
+                  <span class="icon_fav">0</span>
+                  <span class="icon_share">0</span>
+                  <span class="icon_res">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </body>
+      </html>
