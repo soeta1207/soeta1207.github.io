@@ -60,6 +60,21 @@
         background-repeat: no-repeat;
       }
 
+      .tw_button {
+          display: inline;
+          padding: 8px;
+          border: none;
+          border-radius: 4px;
+          background-color: rgb(29, 155, 240);
+          color: #fff;
+          font-weight: bold;
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          cursor: pointer;
+          border: 2px solid transparent;
+      }
+
       </style>
       <meta charset="utf-8">
       <title></title>
@@ -68,60 +83,91 @@
       <div class="container">
         <div id="timeline">
           <div class="tweet">
-            <div class="icon">
-              <img src="dog.jpg" alt="">
-            </div>
-            <div class="tweet_box">
-              <div class="username">
-                ユーザ名
-                <span class="name">@soeta</span>
-                <span class="date">2022/7/5</span>
-              </div>
-              <div class="text">
-                ツイート
-                <div class="action">
-                  <span class="icon_chat">0</span>
-                  <span class="icon_fav">0</span>
-                  <span class="icon_share">0</span>
-                  <span class="icon_res">0</span>
-                </div>
-              </div>
-            </div>
+            <input type="text" id="input_text" placeholder="ここに入力してね! "name="" value="">
+            <button class="tw_button" onclick="form_tweet" type="submit" >送信</button>
           </div>
         </div>
-        <script type="text/javascript">
-          let timeline = document.getElementById('timeline');
-          let tweets = [{"text":"こんにちは","username":"hiroto"},
-        {"text":"おはよう","username":"soeta"},
-        {"text":"こんばんは","username":"suzuki"},
-        {"text":"よろしく","username":"tanaka"}]
+      </div>
+      <script type="text/javascript">
+      let timeline = document.getElementById('timeline');
+
+      function form_tweet(){
+        let input_text = document.getElementById('input_text');
+        if(input_text.value != ""){
+          post_tweet(input_text.value,"name","username");
+          input_text.value = "";
+        }
+      }
+
+      //書き込み処理
+      async function post_tweet(text,name,username) {
+        let send_data ="?name=" + name + "&username=" + username + "&text=" + text;
+        let res_data = await (await fetch("./tweet.rb" + send_data)).text();
+        if (res_data != "OK"){
+          alert(res_data);
+        }
+      };
+
+      viewTweet();
 
 
-          tweets.forEach((tweet,i) => {
-            let template = `<div class="tweet">
-              <div class="icon">
-                <img src="dog.jpg" alt="">
-              </div>
-              <div class="tweet_box">
-                <div class="username">
-                  ${tweet.username}
-                  <span class="name">@soeta</span>
-                  <span class="date">2022/7/5</span>
-                </div>
-                <div class="text">
-                  ${tweet.text}
-                  <div class="action">
-                    <span class="icon_chat">0</span>
-                    <span class="icon_fav">0</span>
-                    <span class="icon_share">0</span>
-                    <span class="icon_res">0</span>
-                  </div>
-                </div>
-              </div>
-            </div>`
-            timeline.innerHTML = timeline.innerHTML + template
-          });
+      async function viewTweet() {
+        let tweets = await getJson();
+        appendTweet(tweets);
+        setTimeout(viewTweet,5000);
+      }
 
-        </script>
-      </body>
-      </html>
+
+
+      async function getJson() {
+        let response = await(await fetch("http://192.168.0.90/timeline.json")).json()
+        return response
+      }
+
+
+
+      function appendTweet(tweets) {
+        let old_tweets = document.getElementsByClassName("tweet");
+        while(old_tweets.length>1){
+          old_tweets.item(1).remove();
+        }
+
+        let tmp_tweets = "";
+
+        tweets.forEach((tweet,i) => {
+          let template = `<div class="tweet">
+          <div class="icon">
+          <img src="dog.jpg" alt="">
+          </div>
+          <div class="tweet_box">
+          <div class="username">
+          ${escapeText(tweet.username)}
+          <span class="name">@soeta</span>
+          <span class="date">2022/7/5</span>
+          </div>
+          <div class="text">
+          ${escapeText(tweet.text)}
+          <div class="action">
+          <span class="icon_chat">0</span>
+          <span class="icon_fav">0</span>
+          <span class="icon_share">0</span>
+          <span class="icon_res">0</span>
+          </div>
+          </div>
+          </div>
+          </div>`
+          tmp_tweets =tmp_tweets + template
+        });
+        timeline.innerHTML = timeline.innerHTML + tmp_tweets;
+      }
+
+      function escapeText(text){
+        let element = document.createElement("div");
+        element.textContent = text;
+        return element.innerHTML.replace(/\n/g,"<br>");
+      }
+
+
+      </script>
+    </body>
+    </html>
